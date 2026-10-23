@@ -26,6 +26,18 @@ public final class PlayerModsScreen extends Screen {
         return false;
     }
 
+    // Disable Minecraft's screen blur effect completely.
+    @Override
+    public void blur() {
+        // Intentionally empty: keep the world and menu sharp.
+    }
+
+    // The screen draws its own background; do not invoke vanilla's blurred backdrop.
+    @Override
+    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+        // Intentionally empty.
+    }
+
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         // Dim the world without using Minecraft's default screen panel.
