@@ -3,10 +3,11 @@
   "id": "playermods",
   "version": "${version}",
   "name": "Player Mods",
-  "description": "A clean player and mod browser for Fabric.",
+  "description": "A clean player and mod browser for Fabric with voluntary mod-list sharing.",
   "authors": ["Acid"],
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
+    "main": ["dev.acid.playermods.PlayerMods"],
     "client": ["dev.acid.playermods.PlayerModsClient"]
   },
   "depends": {
