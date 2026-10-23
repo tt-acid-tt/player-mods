@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "playermods",
+  "version": "${version}",
+  "name": "Player Mods",
+  "description": "A clean player and mod browser for Fabric.",
+  "authors": ["Acid"],
+  "environment": "client",
+  "entrypoints": {
+    "client": ["dev.acid.playermods.PlayerModsClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
