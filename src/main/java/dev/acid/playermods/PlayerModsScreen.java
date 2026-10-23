@@ -89,9 +89,6 @@ public final class PlayerModsScreen extends Screen {
                 rounded(context, left + 31, y + 10, 22, 22, page == Page.PLAYERS ? 0xFF254C62 : 0xFF3A345C, 7);
                 text(context, page == Page.PLAYERS ? "P" : "M", left + 38, y + 17, 0xFFFFFFFF, true);
                 text(context, rows.get(scroll + i), left + 65, y + 15, 0xFFE9EDF6, false);
-                if (page == Page.PLAYERS) {
-                    text(context, "MOD LIST NOT SHARED", left + panelW - 184, y + 15, 0xFF929DB2, false);
-                }
             }
         }
 
@@ -103,10 +100,19 @@ public final class PlayerModsScreen extends Screen {
         List<String> result = new ArrayList<>();
         if (client.getNetworkHandler() != null) {
             for (PlayerListEntry entry : client.getNetworkHandler().getPlayerList()) {
-                result.add(entry.getProfile().getName());
+                String name = entry.getProfile().getName();
+                ModListPayload shared = SharedModsCache.get(name);
+                if (shared == null) {
+                    result.add(name + "  ·  waiting for shared mod list");
+                } else {
+                    String mods = shared.mods().isEmpty() ? "No mods reported" : String.join(", ", shared.mods());
+                    result.add(name + "  ·  " + mods);
+                }
             }
         } else if (client.player != null) {
-            result.add(client.player.getGameProfile().getName());
+            String name = client.player.getGameProfile().getName();
+            ModListPayload shared = SharedModsCache.get(name);
+            result.add(name + "  ·  " + (shared == null ? "local player" : String.join(", ", shared.mods())));
         }
         result.sort(String.CASE_INSENSITIVE_ORDER);
         return result;
